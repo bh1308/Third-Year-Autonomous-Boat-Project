@@ -1,0 +1,24 @@
+#include "YEEP144.h"             //General fuctions and macros for YEEP144 board
+#include "YEEP144_Pinout.h"
+
+#include "stm32h563xx.h"
+#include "stm32h5xx_hal.h"
+#include "YEEP144_Servo.h"       //Functions for the servo's 
+
+
+
+int main(void){
+    HAL_Init();
+    YEEP144_Init();
+    YEEP144_Servo_Init1_2();
+
+    YEEP144_Servo1_SetAngle(90);  
+    // REVERSE: 0 (fastest) - 80 (slowest)
+    // STOP: 90  (81-89, 91-99 are too slow to start thursters)
+    // FORWARD: 180 (fastest) - 110 (slowest)
+
+    HAL_Delay(1000);
+    YEEP144_Servo1_SetAngle(110);
+    
+    
+}
