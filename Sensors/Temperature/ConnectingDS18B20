@@ -1,0 +1,45 @@
+#include "YEEP144.h"
+#include "YEEP144_DebugUART.h"
+#include "stm32h563xx.h"
+#include "stm32h5xx_hal.h"
+#include "stm32h5xx_hal_gpio.h"
+#include "stm32h5xx_hal_rcc.h"
+#include "stm32h5xx_hal_tim.h"
+#include "YEEP144_DS18B20.h"
+
+
+
+int main(void)
+{
+    float tempValue;
+
+	YEEP144_Init();
+	YEEP144_DebugUART_Init();
+	YEEP144_DS18B20_Init();
+
+    while (1)
+    {
+        // Read analogue voltage from A1
+        tempValue = YEEP144_DS18B20_GetTemperature();
+
+
+        // Convert ADC reading to voltage
+
+        if (tempValue != 0){
+        }
+            // Print readings over UART
+            YEEP144_DebugUART_printf(
+                "Water Temperature: %lu\r\n", (unsigned long)tempValue,);
+        }
+        else
+        {
+            YEEP144_DebugUART_printf(
+                "Water Temperature: %lu | Reading out of range\r\n",
+                (unsigned long)tempValue
+            );
+        }
+
+        // Wait 500 ms before next reading
+        HAL_Delay(500);
+    }
+}
