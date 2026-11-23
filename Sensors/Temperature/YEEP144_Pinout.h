@@ -6,7 +6,7 @@
 #ifndef __YEEP144_PINOUT_H
 #define __YEEP144_PINOUT_H
 
-// Temperature Sensor (DS18B20)
+// Temperature Sensor (DS18B20) MCU Pin PC0, ADC12_INP10
 #define DS18B20_PORT GPIOC
 #define DS18B20_PIN  GPIO_PIN_0
 
