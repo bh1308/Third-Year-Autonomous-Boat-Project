@@ -6,7 +6,7 @@
 #ifndef __YEEP144_PINOUT_H
 #define __YEEP144_PINOUT_H
 
-// Conductivity Sensor
+// Conductivity Sensor MCU Pin PA6, ADC12_INP3
 #define Cond_PORT   GPIOA
 #define Cond_PIN    GPIO_PIN_6
 
