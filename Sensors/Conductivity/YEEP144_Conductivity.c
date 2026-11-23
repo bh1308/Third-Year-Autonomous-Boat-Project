@@ -66,7 +66,7 @@ void YEEP144_Conductivity_Init(void){
  */
 uint16_t YEEP144_Conductivity_GetReading(void){
     ADC_ChannelConfTypeDef sConfig = {0};
-    sConfig.Channel = ADC_CHANNEL_6;
+    sConfig.Channel = ADC_CHANNEL_3;
     sConfig.Rank = ADC_REGULAR_RANK_1;
     sConfig.SamplingTime = ADC_SAMPLETIME_247CYCLES_5;
     // With a 64MHz clock and 256x oversampling, 247.5 cycles sample gives us a conversion time of ~1ms
