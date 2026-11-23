@@ -2,25 +2,31 @@
 #include "YEEP144_DebugUART.h"
 #include "stm32h563xx.h"
 #include "stm32h5xx_hal.h"
+#include "stm32h5xx_hal_gpio.h"
+#include "stm32h5xx_hal_rcc.h"
+#include "stm32h5xx_hal_tim.h"
+#include "stm32h5xx_hal_adc.h"
+#include "YEEP144_Conductivity.h"
 
 // ADC settings
 #define ADC_MAX_VALUE  4095.0f
 #define ADC_VREF      3.3f
+#define R_REF         10000.0f  // 10k Ohm // Resistance of the known resistor
 
-// Resistance of the known resistor
-#define R_REF         10000.0f  // 10k Ohm
-#define ADC_CHANNEL_A0  ADC_CHANNEL_0
-
-void Conductivity_Test(void)
+void main(void)
 {
     uint32_t adcValue;
     float voltage;
     float waterResistance;
 
+	YEEP144_Init();
+	YEEP144_DebugUART_Init();
+	YEEP144_Conductivity_Init();
+
     while (1)
     {
         // Read analogue voltage from A0
-        adcValue = ADC_Read_A0();
+        adcValue = YEEP144_Conductivity_GetReading();
 
         // Convert ADC reading to voltage
         voltage = ((float)adcValue / ADC_MAX_VALUE) * ADC_VREF;
