@@ -7,7 +7,7 @@
 #define __YEEP144_PINOUT_H
 
 // Temperature Sensor (DS18B20)
-#define DS18B20_PORT GPIOA
+#define DS18B20_PORT GPIOC
 #define DS18B20_PIN  GPIO_PIN_0
 
 #endif
