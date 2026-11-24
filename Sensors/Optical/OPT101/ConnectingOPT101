@@ -1,0 +1,38 @@
+#include "YEEP144.h"
+#include "YEEP144_DebugUART.h"
+#include "stm32h563xx.h"
+#include "stm32h5xx_hal.h"
+#include "stm32h5xx_hal_gpio.h"
+#include "stm32h5xx_hal_rcc.h"
+#include "stm32h5xx_hal_tim.h"
+#include "stm32h5xx_hal_adc.h"
+#include "YEEP144_OPT101.h"
+
+// ADC settings
+#define ADC_MAX_VALUE  4095.0f
+#define ADC_VREF       3.3f
+
+int main(void)
+{
+    uint32_t lightValue;
+    float voltage;
+
+	YEEP144_Init();
+	YEEP144_DebugUART_Init();
+	YEEP144_OPT101_Init();
+
+    while (1)
+    {
+        // Read analogue voltage from A0
+        lightValue = YEEP144_OPT101_GetReading();
+
+        // Convert ADC reading to voltage
+        voltage = ((float)lightValue * ADC_VREF) / ADC_MAX_VALUE;
+
+// Print readings over UART
+        YEEP144_DebugUART_printf("ADC: %lu | Voltage: %.3f V\r\n", (unsigned long)lightValue, voltage);
+
+        // Wait 500 ms before next reading
+        HAL_Delay(500);
+    }
+}
